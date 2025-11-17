@@ -1,0 +1,24 @@
+{
+	"eventId": "01945027-150e-72b4-e7cf-4943a042cd9c",
+	"date": "2025-01-10T12:18:46Z",
+	"version": "v1",
+	"event": "product.updated",
+	"companyId": "d4475854366a36c86a37e792f9634a51",
+	"data": {
+		"id": 12345678,
+		"data": "2024-09-25",
+		"numero": 123,
+		"numeroLoja": "Loja_123",
+		"total": 123.45,
+		"contato": {
+			"id": 12345678
+		},
+		"vendedor": {
+			"id": 12345678
+		},
+		"loja": {
+			"id": 12345678
+		}
+	}
+		
+}
