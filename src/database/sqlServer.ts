@@ -1,21 +1,18 @@
 import sql from "mssql";
 
-const config: sql.config = {
-  server: "SOLADM-281\\SQLEXPRESS01",
-  database: "NOME_DO_SEU_BANCO",
+const config = {
+  server: "127.0.0.1",
+  port: 1433,
+  database: "NORTHWND",
+  user: "api",
+  password: "123456",
   options: {
     encrypt: false,
     trustServerCertificate: true
-  },
-  authentication: {
-    type: "ntlm",
-    options: {
-      userName: "",  // deixe vazio para Windows Auth
-      password: "",
-      domain: "SOLFARMA" // aparece na imagem: "SOLFARMA\rudinei.cferreira"
-    }
   }
 };
+
+
 
 export const sqlServerConnection = async () => {
   try {

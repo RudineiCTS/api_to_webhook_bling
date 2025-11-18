@@ -1,5 +1,7 @@
 import express from 'express';
 import webhookRoutes from './routes/webhookRoutes';
+import "./queue/webhookWorker";
+
 
 const app = express();
 

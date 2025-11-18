@@ -6,10 +6,9 @@ export class SQLService {
       const pool = await sqlServerConnection();
 
       const result = await pool
-        .request()
-        .input("dataDeExecucao", dataDeExecucao)
+        .request()    
         .input("eventoType", eventoType)
-        .execute("recebeinformacaoteste");
+        .execute("dbo.recebeinformacaoteste");
 
       console.log("🟢 Procedure executada:", result.rowsAffected);
       return result;
