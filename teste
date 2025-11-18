@@ -22,3 +22,5 @@
 	}
 		
 }
+
+//API --> queue.add() --> Redis --> Worker --> processa o job

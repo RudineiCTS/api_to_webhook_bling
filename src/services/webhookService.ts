@@ -1,18 +1,14 @@
+import { pathToFileURL } from 'url';
 import { WebhookPayload, WebhookResponse } from '../types/webhookTypes';
+import { SQLService } from './sqlService';
 
 export class WebhookService {
   static async processWebhook(payload: WebhookPayload): Promise<WebhookResponse> {
     try {
       console.log('Processing webhook:', payload);
       
-      // Simular processamento
-      await new Promise(resolve => setTimeout(resolve, 100));
       
-      // Aqui você pode:
-      // - Validar a assinatura
-      // - Salvar no banco de dados
-      // - Enviar para uma fila
-      // - Processar o evento
+      SQLService.salvarEvento(payload.data, payload.event)
       
       return {
         success: true,
