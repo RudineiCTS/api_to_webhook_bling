@@ -1,13 +1,13 @@
 import { Worker } from "bullmq";
-import { redisConfig } from "../config/redis";
-import { WebhookService } from "../services/webhookService";
+import { redisConfig } from "../../src/config/redis";
+import { WebhookService } from "../../src/services/webhookService";
 
 export const webhookWorker = new Worker(
   "webhook-queue",
   async (job) => {
     console.log("👷 Worker recebeu job:", job.id);
 
-    await WebhookService.processWebhook(job.data);
+    // await WebhookService.processWebhook(job.data);
 
     return { status: "done" };
   },

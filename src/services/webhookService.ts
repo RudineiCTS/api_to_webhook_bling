@@ -1,29 +1,21 @@
-import { pathToFileURL } from 'url';
 import { WebhookPayload, WebhookResponse } from '../types/webhookTypes';
 import { SQLService } from './sqlService';
 
 export class WebhookService {
   static async processWebhook(payload: WebhookPayload): Promise<WebhookResponse> {
     try {
-      console.log('Processing webhook:', payload);
-      
-      
-      SQLService.salvarEvento(payload.data, payload.event)
+
+      SQLService.salvarEvento(payload)
       
       return {
         success: true,
-        message: 'Webhook processed successfully',
+        message: 'Webhook processado com sucesso!',
         processedAt: new Date().toISOString(),
         eventId: `evt_${Date.now()}`
       };
     } catch (error) {
-      console.error('Error processing webhook:', error);
-      throw new Error('Failed to process webhook');
+      console.error('Erro no processamento do webhook:', error);
+      throw new Error('Falhou o processamento do webhook');
     }
-  }
-
-  static validateSignature(payload: WebhookPayload, signature: string): boolean {
-    // Implementar validação de assinatura
-    return true; // Placeholder
   }
 }

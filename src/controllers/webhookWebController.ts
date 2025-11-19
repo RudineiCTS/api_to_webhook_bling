@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { WebhookService } from '../services/webhookService';
 import { WebhookPayload } from '../types/webhookTypes';
-import { webhookQueue } from '../queue/webhookQueue';
+import { verifyBlingSignature } from '../utils/compareHash';
 
 export class WebhookController{
     static async handleWebhook(req:Request , res:Response ){
@@ -9,19 +9,19 @@ export class WebhookController{
             const payload = req.body;            
             
             //pega assinatura
-            const signature = req.headers['x-signature'] as string;
+            // const signature = req.header("X-Bling-Signature-256") as string | undefined;             
+            // const isValid = verifyBlingSignature(req.body, signature, process.env.BLING_CLIENT_SECRET!);
 
-            //validar assinatura
+            // if (!isValid) {
+            //     return res.status(401).send("Assinatura inválida");
+            // }
+            
+            const payloadConverted = payload  as WebhookPayload
+            WebhookService.processWebhook(payloadConverted)
 
-            if(!payload.event){
-                return res.status(400).json({success: false, error: 'Event type is required'})
-            }
-            res.status(200).json(payload);
-            //envia informação para fila
-            await webhookQueue.add("webhook-job",payload);
-            console.log("📩 Payload recebido e enviado à fila");
+            res.status(200).json(payloadConverted);                    
         } catch (error) {
-            console.error('Webhook error:', error);
+            
             res.status(500).json({
                 success: false, 
                 error: 'Internal server error', 

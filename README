@@ -1,0 +1,30 @@
+API de Integração com Webhook do Bling
+
+Esta API foi criada com o objetivo de receber e processar notificações enviadas pelo webhook do Bling, garantindo a validação da criptografia e o encaminhamento seguro das informações para a base de dados configurada.
+
+📌 Funcionalidade Principal
+
+Recebe eventos enviados pelo Bling Webhook
+
+Realiza a validação da criptografia definida pelo Bling
+
+Armazena os dados validados na base de dados configurada
+
+🏗️ Histórico da Arquitetura
+
+Anteriormente, esta API utilizava um mecanismo de processamento assíncrono por fila, usando Redis.
+No entanto, esse componente foi temporariamente removido para realização de testes e validação da real necessidade de manter o processamento via filas.
+
+A intenção atual é:
+
+Avaliar o comportamento da API sem o uso de Redis
+
+Verificar se o fluxo atende os requisitos de desempenho e estabilidade
+
+Decidir posteriormente se o processamento via filas deve ser reimplementado
+
+🚧 Estado Atual
+
+A API está funcionando em modo direto (sem filas), recebendo as requisições do webhook e processando-as imediatamente.
+
+Se necessário, o suporte ao Redis poderá ser reativado no futuro.

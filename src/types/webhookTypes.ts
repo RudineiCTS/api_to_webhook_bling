@@ -1,11 +1,11 @@
-import { Product } from "./ProductEventType";
-import { Sale } from "./SaleEventType";
-import { StockMovimment } from "./StockMovimmentEvenType";
-import { StockProduct } from "./StockProdutoEventType";
-
 export interface WebhookPayload {
-  event: string;
-  data: any;
+  eventId: string;
+  date: string;
+  version: string;
+  event:string;
+  companyId:string;
+  data: any
+
   timestamp?: string;
   signature?: string;
 }
@@ -24,7 +24,7 @@ export interface RequestRegister{
     version: string;
     event:string;
     companyId:string;
-    data: Sale | StockMovimment | Product | StockProduct
+    data: any
 
 }
 

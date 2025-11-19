@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+     "build": "tsc",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -25,8 +26,10 @@
   },
   "dependencies": {
     "bullmq": "^5.63.2",
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "ioredis": "^5.8.2",
+    "msnodesqlv8": "^5.1.1",
     "mssql": "^12.1.0"
   }
 }
