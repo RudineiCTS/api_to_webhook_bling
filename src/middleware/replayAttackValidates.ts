@@ -32,7 +32,7 @@ export const protectReplay = async (req: Request, res: Response, next: NextFunct
 
     // 4. Validar replay no Redis
     const exists = await WebhookService.validateEventoId(`${uniqueId}`);
-    if (exists) {
+    if (!exists.success) {
         return res.status(409).json({ error: "Requisição duplicada (replay detectado)." });
     }
 
