@@ -4,7 +4,8 @@ import { WebhookService } from '../services/webhookService';
 
 export const protectReplay = async (req:Request, res:Response, next:NextFunction) => {
     const body = req.body;
-
+    
+    
     const signature = req.header("X-Bling-Signature-256") as string | undefined;             
     const isValid = verifyBlingSignature(req.body, signature, process.env.BLING_CLIENT_SECRET!);
 

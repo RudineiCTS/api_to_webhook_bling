@@ -1,20 +1,14 @@
 import { Request, Response } from 'express';
 import { WebhookService } from '../services/webhookService';
 import { WebhookPayload } from '../types/webhookTypes';
-import { verifyBlingSignature } from '../utils/compareHash';
+
 
 export class WebhookController{
     static async handleWebhook(req:Request , res:Response ){
         try {
-            const payload = req.body;            
+            const raw = req.body;
+            const payload = JSON.parse(raw.toString());
             
-            
-            const signature = req.header("X-Bling-Signature-256") as string | undefined;             
-            const isValid = verifyBlingSignature(req.body, signature, process.env.BLING_CLIENT_SECRET!);
-
-            if (!isValid) {
-                return res.status(401).send("Assinatura inválida");
-            }
             
             const payloadConverted = payload  as WebhookPayload
             WebhookService.processWebhook(payloadConverted)
