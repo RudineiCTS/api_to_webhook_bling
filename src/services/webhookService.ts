@@ -18,4 +18,20 @@ export class WebhookService {
       throw new Error('Falhou o processamento do webhook');
     }
   }
+  static async validateEventoId(eventoId:string){
+    try {
+
+      SQLService.VerificaEventoId(eventoId)
+      
+      return {
+        success: true,
+        message: 'Webhook processado com sucesso!',
+        processedAt: new Date().toISOString(),
+        eventId: `evt_${Date.now()}`
+      };
+    } catch (error) {
+      console.error('Erro no processamento do webhook:', error);
+      throw new Error('Falhou o processamento do webhook');
+    }
+  }
 }

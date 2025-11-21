@@ -8,13 +8,13 @@ export class WebhookController{
         try {
             const payload = req.body;            
             
-            //pega assinatura
-            // const signature = req.header("X-Bling-Signature-256") as string | undefined;             
-            // const isValid = verifyBlingSignature(req.body, signature, process.env.BLING_CLIENT_SECRET!);
+            
+            const signature = req.header("X-Bling-Signature-256") as string | undefined;             
+            const isValid = verifyBlingSignature(req.body, signature, process.env.BLING_CLIENT_SECRET!);
 
-            // if (!isValid) {
-            //     return res.status(401).send("Assinatura inválida");
-            // }
+            if (!isValid) {
+                return res.status(401).send("Assinatura inválida");
+            }
             
             const payloadConverted = payload  as WebhookPayload
             WebhookService.processWebhook(payloadConverted)

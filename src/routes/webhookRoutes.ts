@@ -1,9 +1,10 @@
 import {Router} from 'express';
 import { WebhookController } from '../controllers/webhookWebController';
+import { protectReplay } from '../middleware/replayAttackValidates';
 
 
 const webhookRoutes = Router();
 
-webhookRoutes.post('/webhook',WebhookController.handleWebhook)
+webhookRoutes.post('/webhook',protectReplay, WebhookController.handleWebhook)
 
 export default webhookRoutes;

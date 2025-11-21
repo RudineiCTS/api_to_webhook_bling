@@ -20,4 +20,19 @@ export class SQLService {
       throw error;
     }
   }
+  static async VerificaEventoId(uniqueIdEvento: string){
+    try{
+      const pool = await sqlServerConnection();
+
+      const result = await pool
+        .request()
+        .input("INvhcEventoId",uniqueIdEvento)
+        .execute("dbo.uspRegistraWebhook");
+
+      return result
+    }catch(error){
+      console.error("❌ Erro ao executar procedure:", error);
+      throw error;
+    }
+  }
 }
