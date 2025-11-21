@@ -1,26 +1,22 @@
 import 'dotenv/config';
-import sql from "mssql/msnodesqlv8";
 
-const config: sql.config = {
-  server: "DBTOTVS", // nome do servidor
+import sql from "mssql";
+
+export const sqlConfig = {
+  user: process.env.SQL_USER,
+  password: process.env.SQL_PASSWORD,
   database: "Zanup",
-  authentication: {
-    type: "default", // login SQL Server
-    options: {
-      userName: process.env.SQL_USER,
-      password: process.env.SQL_PASSWORD
-    }
-  },
+  server: "DBTOTVS\\DBTOTVS",
   options: {
     encrypt: false,
-    trustServerCertificate: true,
-    instanceName: "DBTOTVS" // sua instância DBTOTVS\DBTOTVS
+    trustServerCertificate: true
   }
 };
 
+
 export const sqlServerConnection = async () => {
   try {
-    const pool = await sql.connect(config);
+    const pool = await sql.connect(sqlConfig);
     console.log("🟢 Conectado ao SQL Server usando login SQL.");
     return pool;
   } catch (error) {
