@@ -21,8 +21,8 @@ export class WebhookService {
   static async validateEventoId(eventoId:string){
     try {
 
-      SQLService.VerificaEventoId(eventoId)
-      
+      const result = await SQLService.VerificaEventoId(eventoId)
+      console.log(result);
       return {
         success: true,
         message: 'Webhook processado com sucesso!',

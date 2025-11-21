@@ -8,8 +8,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "start": "node index.js",
-    "dev": "ts-node src/index.ts",
+    "dev": "node --inspect=9229 -r ts-node/register src/index.ts",
+    "start": "ts-node src/index.ts",
     "worker": "ts-node src/worker.ts"
   },
   "keywords": [],

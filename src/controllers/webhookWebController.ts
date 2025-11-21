@@ -1,26 +1,24 @@
-import { Request, Response } from 'express';
-import { WebhookService } from '../services/webhookService';
-import { WebhookPayload } from '../types/webhookTypes';
+import { Request, Response } from "express";
+import { WebhookService } from "../services/webhookService";
 
-
-export class WebhookController{
-    static async handleWebhook(req:Request , res:Response ){
+export class WebhookController {
+    static async handleWebhook(req: Request, res: Response) {
         try {
-            const raw = req.body;
-            const payload = JSON.parse(raw.toString());
-            
-            
-            const payloadConverted = payload  as WebhookPayload
-            WebhookService.processWebhook(payloadConverted)
+            // O protectReplay colocou o JSON parseado aqui
+            const data = (req as any).jsonBody;   
 
-            res.status(200).json(payloadConverted);                    
-        } catch (error) {
+            if (!data) {
+                return res.status(400).json({ error: "JSON não encontrado após validação." });
+            }
+
             
-            res.status(500).json({
-                success: false, 
-                error: 'Internal server error', 
-                message: error instanceof Error ? error.message : 'Unknown error'
-            });
+            await WebhookService.processWebhook(data);
+
+            return res.status(200).json({ message: "Webhook recebido com sucesso" });
+
+        } catch (error: any) {
+            console.error("Erro ao processar webhook:", error);
+            return res.status(500).json({ error: "Erro interno ao processar webhook" });
         }
     }
 }
